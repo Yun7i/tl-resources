@@ -1,9 +1,11 @@
 # vedio-jarvis
+
 TL resources for vedio generation
 
 ## Frontend — Install & Run
 
 Prerequisites:
+
 - Node.js >= 22.12.0
 - pnpm (recommended)
 
@@ -28,12 +30,13 @@ fnm use 22
 ```
 
 Notes:
-- The frontend project is scaffolded with Vite + React + TypeScript and expects ESM (see `frontend/package.json` and `frontend/tsconfig.node.json`).
 
+- The frontend project is scaffolded with Vite + React + TypeScript and expects ESM (see `frontend/package.json` and `frontend/tsconfig.node.json`).
 
 ## Backend — Install & Run
 
 Prerequisites:
+
 - Node.js >= 22.12.0
 - pnpm (recommended)
 
@@ -51,6 +54,7 @@ pnpm start    # run built app (after build)
 ```
 
 Notes:
+
 - The backend is TypeScript + Node (ESM). The project uses a centralized config loader that reads the repository root `.env` file (not `.env.development`). Create a root `.env` by copying `.env.sample` to `.env` and editing `DATABASE_URL` and `PORT` before starting the server.
 - Node does not read `.env` automatically; the backend's `config.ts` uses `dotenv` to load the root `.env` at startup so `process.env` contains those values.
 - Security: do not commit your actual `.env` with secrets — keep `.env` in `.gitignore` and commit only `/.env.sample`.
@@ -69,6 +73,7 @@ npx cross-env PORT=4000 pnpm -C backend dev
 The repository includes a `docker-compose.yml` that runs a stable PostgreSQL 15 image for local development.
 
 Environment variables
+
 - The compose file reads DB credentials from the repository root `.env`. Ensure these keys exist in `.env`:
 
 ```env
@@ -112,3 +117,16 @@ pnpm format:check
 pnpm format
 ```
 
+## Pre-commit Hook
+
+- **What it runs:** on `git commit` the repository's pre-commit hook (installed by Husky) runs:
+  - `lint-staged` to run `eslint --fix` and `prettier --write` against staged `*.{js,jsx,ts,tsx}` files (fixes are applied and re-staged automatically).
+  - The workspace test script in CI mode: `pnpm -w run test:ci` (runs `vitest --run` across `frontend`, `backend`, and `shared`).
+
+- **Why:** this prevents committing code that fails linting/formatting or breaks tests.
+
+- **How to install (automatically):** Husky hooks are installed by the `prepare` hook in `package.json` when running `pnpm install`. Run this once after cloning the repo:
+
+```bash
+pnpm install
+```
