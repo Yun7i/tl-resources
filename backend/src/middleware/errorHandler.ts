@@ -4,6 +4,10 @@ import { ZodError } from 'zod';
 import { HttpError } from '../errors/HttpError';
 import { sendFailure } from '../utils/http';
 
+function isPrismaLike(e: unknown): e is { code?: string; meta?: unknown } {
+  return typeof e === 'object' && e !== null && 'code' in (e as object);
+}
+
 export function notFoundHandler(req: Request, res: Response) {
   return res.status(404).json({ error: 'Not Found' });
 }
@@ -30,10 +34,9 @@ export function errorHandler(err: unknown, req: Request, res: Response) {
 
   // Prisma unique constraint or known DB errors
   // Prisma errors often expose a `code` like 'P2002' for unique constraint
-  if (err && typeof err === 'object' && 'code' in err) {
-    const e = err as any;
-    if (e.code === 'P2002') {
-      return sendFailure(res, 409, 'Conflict', 'UNIQUE_CONSTRAINT', e.meta ?? e);
+  if (isPrismaLike(err)) {
+    if (err.code === 'P2002') {
+      return sendFailure(res, 409, 'Conflict', 'UNIQUE_CONSTRAINT', err.meta ?? err);
     }
   }
 

@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 import { findUserByEmail, createUser, CreateUserParams } from '../repositories/userRepository';
 import { HttpError } from '../errors/HttpError';
+import type { CreateUserInput } from '../../../shared/src/schemas/user';
 
-export const createUserService = async (payload: any) => {
+export const createUserService = async (payload: CreateUserInput) => {
   const email = payload?.email;
   const password = payload?.password;
 
@@ -27,5 +28,5 @@ export const createUserService = async (payload: any) => {
   const user = await createUser(createParams);
 
   // return only the created user's id for logging
-  return { id: (user as any).id };
+  return { id: (user as { id: number }).id };
 };
