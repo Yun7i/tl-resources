@@ -1,4 +1,4 @@
-import type { Request, Response } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import logger from '../utils/logger.js';
 import { ZodError } from 'zod';
 import { HttpError } from '../errors/HttpError';
@@ -13,7 +13,12 @@ export function notFoundHandler(req: Request, res: Response) {
 }
 
 // Express error handler (4 args) — centralizes error -> HTTP mapping
-export function errorHandler(err: unknown, req: Request, res: Response) {
+export function errorHandler(err: unknown, req: Request, res: Response, next: NextFunction) {
+  // If headers already sent, delegate to the default Express error handler
+  if (res.headersSent) {
+    return next(err as any);
+  }
+
   try {
     logger.error({ err, path: req.path, method: req.method }, 'Unhandled error');
   } catch (error) {

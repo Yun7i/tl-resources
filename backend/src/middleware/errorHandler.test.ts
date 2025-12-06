@@ -16,7 +16,7 @@ describe('errorHandler middleware', () => {
 
     const err = new HttpError(409, 'User exists', 'USER_EXISTS');
 
-    errorHandler(err, req, res);
+    errorHandler(err, req, res, vi.fn() as any);
 
     expect(res.status).toHaveBeenCalledWith(409);
     expect(res.json).toHaveBeenCalledWith({
@@ -35,7 +35,7 @@ describe('errorHandler middleware', () => {
     const result = schema.safeParse({ email: 'bad' });
     const err = result.error as ZodError;
 
-    errorHandler(err, req, res);
+    errorHandler(err, req, res, vi.fn() as any);
 
     expect(res.status).toHaveBeenCalledWith(422);
     expect(res.json).toHaveBeenCalledWith({
@@ -52,7 +52,7 @@ describe('errorHandler middleware', () => {
 
     const err: any = { code: 'P2002', meta: { target: ['email'] } };
 
-    errorHandler(err, req, res);
+    errorHandler(err, req, res, vi.fn() as any);
 
     expect(res.status).toHaveBeenCalledWith(409);
     expect(res.json).toHaveBeenCalledWith({
@@ -69,7 +69,7 @@ describe('errorHandler middleware', () => {
 
     const err = new Error('boom');
 
-    errorHandler(err, req, res);
+    errorHandler(err, req, res, vi.fn() as any);
 
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({

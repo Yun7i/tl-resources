@@ -3,7 +3,9 @@ import { authMiddleware } from './auth';
 import jwt from 'jsonwebtoken';
 
 describe('authMiddleware', () => {
-  beforeEach(() => vi.resetAllMocks());
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
 
   it('rejects missing auth header', () => {
     const req: any = { headers: {} };
