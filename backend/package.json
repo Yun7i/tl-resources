@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@prisma/client": "^7.1.0",
+    "bcrypt": "^5.1.1",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -42,6 +43,7 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",

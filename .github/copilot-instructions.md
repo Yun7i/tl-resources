@@ -56,6 +56,7 @@ Backend specifics (`backend/`)
 - Dev: `pnpm -C backend dev` (starts the backend dev script defined in `backend/package.json`).
 - Debug: use the VS Code `launch.json` configuration to run `pnpm -C backend run dev` or attach to `--inspect` port.
 - Prisma: schema in `backend/prisma/schema.prisma`. Place repository-level DB access in `backend/src/repositories/` and call from services.
+- API use Restful style.
 - Tests: `backend/vitest.config.ts` (node environment) — place unit tests alongside modules (e.g., `services/*.test.ts`).
 
 Shared specifics (`shared/`)

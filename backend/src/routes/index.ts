@@ -1,8 +1,8 @@
 import express from 'express';
-import { getRoot } from '../controllers/homeController';
+import authRouter from './auth';
 
 const router = express.Router();
 
-router.get('/', getRoot);
+router.use('/auth', authRouter);
 
 export default router;
