@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run lint-staged to fix/validate staged files
+# Use pnpm exec -- <cmd> to pass arguments correctly
+pnpm -w exec -- lint-staged || exit 1

@@ -1,0 +1,64 @@
+/* Reset / Remove browser default styles for most tags */
+
+/* Box sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding from common elements */
+html, body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links - remove default color/underline but keep ability to style */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Make images and media behave consistently */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Forms - remove default controls styling, inherit fonts */
+button, input, select, textarea {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Preserve useful defaults for accessibility: use a clear focus style */
+:focus {
+  outline: 2px solid Highlight;
+  outline-offset: 2px;
+}
+
+/* Root defaults */
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
