@@ -1,5 +1,7 @@
 import { Container, Typography, Button, Box, Stack, AppBar, Toolbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { getToken } from '../utils/request';
+import UserMenu from '../components/UserMenu';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -18,13 +20,19 @@ export default function Landing() {
           </Box>
 
           <Box>
-            <Stack direction="row" spacing={1}>
-              <Button color="inherit" onClick={() => navigate('/login')}>
-                Login
-              </Button>
-              <Button variant="contained" onClick={() => navigate('/register')}>
-                Register
-              </Button>
+            <Stack direction="row" spacing={1} alignItems="center">
+              {getToken() ? (
+                <UserMenu />
+              ) : (
+                <>
+                  <Button color="inherit" onClick={() => navigate('/login')}>
+                    Login
+                  </Button>
+                  <Button variant="contained" onClick={() => navigate('/register')}>
+                    Register
+                  </Button>
+                </>
+              )}
             </Stack>
           </Box>
         </Toolbar>
